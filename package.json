@@ -6,7 +6,8 @@
   "scripts": {
     "test": "NODE_ENV=test tape src/tests/*.test.js | tap-spec",
     "start": "node src/index.js",
-    "watch": "nodemon src/index.js"
+    "watch": "nodemon src/index.js",
+    "db:build": "node src/model/database/dbBuild.js"
   },
   "repository": {
     "type": "git",
