@@ -1,0 +1,30 @@
+<form id="logmeal" action="/logmeal" method="post">
+      <div>
+        <label for="username">UserName:</label>
+        <input type="text" id="username" name="username" />
+      </div>
+      <div>
+        <label for="date">Choose Your Meal</label>
+
+        <select name="Meals">
+          {{#each getMealTitles}}
+          <option value="getMealTitles">{{getMealTitles}}</option>
+          {{/each}}
+        </select>
+</div>
+
+
+        <input type="text" id="mail" name="mail" />
+      </div>
+      <div>
+        <label for="date">Meal Date:</label>
+        <input type="date" id="date" name="date" />
+      </div>
+      <div>
+        <label for="time">Meal Time:</label>
+        <input type="time" id="time" name="time" />
+      </div>
+      <div class="wrapper">
+        <div class="button"><button type="submit">Register</button></div>
+      </div>
+    </form>
