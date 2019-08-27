@@ -1,7 +1,9 @@
-
 const connection = require("../database/dbConnection");
 
-const getAllLogs = (cb) => {
+const getMealTitles = () => connection.query(`SELECT title FROM meals`);
+console.log("Data from database", getMealTitles());
+
+const getAllLogs = cb => {
   connection.query("SELECT * FROM meal_log;", (err, res) => {
     if (err) {
       cb(err);
@@ -12,27 +14,35 @@ const getAllLogs = (cb) => {
 };
 
 const getAllUserLogs = (user, cb) => {
-  connection.query('SELECT * FROM meal_log WHERE username = $1;', [user], (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res.rows);
+  connection.query(
+    "SELECT * FROM meal_log WHERE username = $1;",
+    [user],
+    (err, res) => {
+      if (err) {
+        cb(err);
+      } else {
+        cb(null, res.rows);
+      }
     }
-  });
+  );
 };
 
 const getSingleLog = (logId, cb) => {
-  connection.query('SELECT * FROM meal_log WHERE id = $1;', [logId], (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res.rows);
+  connection.query(
+    "SELECT * FROM meal_log WHERE id = $1;",
+    [logId],
+    (err, res) => {
+      if (err) {
+        cb(err);
+      } else {
+        cb(null, res.rows);
+      }
     }
-  });
+  );
 };
 
-const getAllMeals = (cb) => {
-  connection.query('SELECT * FROM meals;', (err, res) => {
+const getAllMeals = cb => {
+  connection.query("SELECT * FROM meals;", (err, res) => {
     if (err) {
       cb(err);
     } else {
@@ -42,15 +52,18 @@ const getAllMeals = (cb) => {
 };
 
 const getMealById = (mealId, cb) => {
-  connection.query('SELECT * FROM meals WHERE id = $1;', [mealId], (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res.rows);
+  connection.query(
+    "SELECT * FROM meals WHERE id = $1;",
+    [mealId],
+    (err, res) => {
+      if (err) {
+        cb(err);
+      } else {
+        cb(null, res.rows);
+      }
     }
-  });
+  );
 };
-
 
 const addMeal = meal => {
   const { title, calories, ingredients } = meal;
@@ -64,9 +77,10 @@ const addMeal = meal => {
 
 module.exports = {
   addMeal,
+  getMealTitles,
   getAllLogs,
   getAllUserLogs,
   getSingleLog,
   getAllMeals,
   getMealById
-}
+};
