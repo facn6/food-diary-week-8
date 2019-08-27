@@ -3,6 +3,7 @@ const exphbs = require("express-handlebars");
 const path = require("path");
 
 const routes = require("./router/index");
+
 const helpers = require("./views/helpers/index");
 
 const app = express();
@@ -22,5 +23,4 @@ app.engine(
 
 app.set("port", process.env.PORT || 3000);
 app.use(routes);
-
 module.exports = app;
