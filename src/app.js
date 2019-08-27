@@ -4,7 +4,6 @@ const path = require("path");
 
 const routes = require("./router/index");
 const helpers = require("./views/helpers/index");
-const data = require("./views/helpers/index");
 
 const app = express();
 
