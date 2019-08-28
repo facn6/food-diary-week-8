@@ -3,7 +3,11 @@ const connection = require("../database/dbConnection");
 const getMealTitles = () => connection.query(`SELECT title FROM meals`);
 
 const logMeal = body => {
-  const { username, date, title } = body;
+  const {
+    username,
+    date,
+    title
+  } = body;
   return db
     .query(
       `INSERT INTO meal_log(firstname, surname, cohort) VALUES($1,$2, $3) RETURNING ID`,
@@ -14,70 +18,22 @@ const logMeal = body => {
     });
 };
 
-const getAllLogs = cb => {
-  connection.query("SELECT * FROM meal_log;", (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res.rows);
-    }
-  });
-};
+const getAllLogs = () => connection.query("SELECT * FROM meal_log;");
 
-const getAllUserLogs = (user, cb) => {
-  connection.query(
-    "SELECT * FROM meal_log WHERE username = $1;",
-    [user],
-    (err, res) => {
-      if (err) {
-        cb(err);
-      } else {
-        cb(null, res.rows);
-      }
-    }
-  );
-};
+const getAllUserLogs = (user) => connection.query("SELECT * FROM meal_log WHERE username = $1;", [user]);
 
-const getSingleLog = (logId, cb) => {
-  connection.query(
-    "SELECT * FROM meal_log WHERE id = $1;",
-    [logId],
-    (err, res) => {
-      if (err) {
-        cb(err);
-      } else {
-        cb(null, res.rows);
-      }
-    }
-  );
-};
+const getSingleLog = (logId) => connection.query("SELECT * FROM meal_log WHERE id = $1;", [logId]);
 
-const getAllMeals = cb => {
-  connection.query("SELECT * FROM meals;", (err, res) => {
-    if (err) {
-      cb(err);
-    } else {
-      cb(null, res.rows);
-    }
-  });
-};
+const getAllMeals = cb => connection.query("SELECT * FROM meals;");
 
-const getMealById = (mealId, cb) => {
-  connection.query(
-    "SELECT * FROM meals WHERE id = $1;",
-    [mealId],
-    (err, res) => {
-      if (err) {
-        cb(err);
-      } else {
-        cb(null, res.rows);
-      }
-    }
-  );
-};
+const getMealById = (mealId) => connection.query("SELECT * FROM meals WHERE id = $1;", [mealId]);
 
 const addMeal = meal => {
-  const { title, calories, ingredients } = meal;
+  const {
+    title,
+    calories,
+    ingredients
+  } = meal;
   return db
     .query(
       `INSERT INTO meals(title, calories, ingredients) VALUES($1,$2, $3) RETURNING ID`,
