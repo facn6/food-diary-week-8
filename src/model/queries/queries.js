@@ -1,7 +1,18 @@
 const connection = require("../database/dbConnection");
 
 const getMealTitles = () => connection.query(`SELECT title FROM meals`);
-console.log("Data from database", getMealTitles());
+
+const logMeal = body => {
+  const { username, date, title } = body;
+  return db
+    .query(
+      `INSERT INTO meal_log(firstname, surname, cohort) VALUES($1,$2, $3) RETURNING ID`,
+      [username, date, title]
+    )
+    .then(idArray => {
+      return idArray[0];
+    });
+};
 
 const getAllLogs = cb => {
   connection.query("SELECT * FROM meal_log;", (err, res) => {
