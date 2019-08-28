@@ -6,15 +6,15 @@
     <div>
         <label for="meal">Choose Your Meal</label>
 
-        <select name="Meals">
+        <select name="meal">
           {{#each getMealTitles}}
-          <option value={{title}}>{{title}}</option>
+          <option value={{id}}>{{title}}</option>
           {{/each}}
         </select>
 </div>
 
 
-      <input type="text" id="mail" name="title" />
+
       </div>
        <div>
         <label for="date">Meal Date:</label>
@@ -23,6 +23,10 @@
       <div>
         <label for="time">Meal Time:</label>
         <input type="time" id="time" name="time" />
+      </div>
+      <div>
+        <label for="portion">Portion Size:</label>
+        <input type="text" id="portion" name="portion" />
       </div>
       <!-- <div class="wrapper"> -->
       <input type="submit" value="Submit"/>
