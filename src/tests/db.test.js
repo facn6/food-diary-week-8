@@ -2,10 +2,7 @@ const tape = require('tape');
 const _test = require('tape-promise').default;
 
 const test = _test(tape);
-const {
-  build,
-  connection,
-} = require('../model/database/dbBuild');
+const { build, connection } = require('../model/database/dbBuild');
 const queries = require('../model/queries/queries');
 
 test('tape test for db files is working', (t) => {
@@ -28,50 +25,93 @@ const meal1 = {
   ingredients: ['Chicken', 'Avocado', 'Lettuce', 'Onion'],
 };
 
-connection.query(build)
+connection
+  .query(build)
   .then((res) => console.log('res', res))
   .catch((e) => console.error('error', e));
 
-test('Test that getAllLogs returns all the diary info', (t) => queries.getAllLogs()
-  .then((result) => {
-    t.deepEqual(result[0].username, log1.username, 'returns the correct info from DB');
-    t.end();
-  })
-  .catch((error) => {
-    if (error) console.log('we have an error with the query: ', error);
-  }));
+test('Test that getAllLogs returns all the diary info', (t) => queries
+    .getAllLogs()
+    .then((result) => {
+      t.deepEqual(
+        result[0].username,
+        log1.username,
+        'returns the correct info from DB',
+      );
+      t.end();
+    })
+    .catch((error) => {
+      if (error) console.log('we have an error with the query: ', error);
+    }));
 
-test('Test that getAllUserLogs returns all the diary info for given user', (t) => queries.getAllUserLogs('Bobby')
-  .then((result) => {
-    t.deepEqual(result[0].username, log1.username, 'returns the correct info from DB');
-    t.end();
-  })
-  .catch((error) => {
-    if (error) console.log('we have an error with the query: ', error);
-  }));
+test('Test that getAllUserLogs returns all the diary info for given user', (t) => queries
+    .getAllUserLogs('Bobby')
+    .then((result) => {
+      t.deepEqual(
+        result[0].username,
+        log1.username,
+        'returns the correct info from DB',
+      );
+      t.end();
+    })
+    .catch((error) => {
+      if (error) console.log('we have an error with the query: ', error);
+    }));
 
-test('Test that getSingleLog returns the correct meal log', (t) => queries.getSingleLog(1)
-  .then((result) => {
-    t.deepEqual(result[0].username, log1.username, 'returns the correct info from DB');
-    t.end();
-  })
-  .catch((error) => {
-    if (error) console.log('we have an error with the query: ', error);
-  }));
+test('Test that getSingleLog returns the correct meal log', (t) => queries
+    .getSingleLog(1)
+    .then((result) => {
+      t.deepEqual(
+        result[0].username,
+        log1.username,
+        'returns the correct info from DB',
+      );
+      t.end();
+    })
+    .catch((error) => {
+      if (error) console.log('we have an error with the query: ', error);
+    }));
 
-test('Test that getMeals returns all the meals in the database', (t) => queries.getAllMeals()
-  .then((result) => {
-    t.deepEqual(result[0].title, meal1.title, 'returns the correct info from DB');
-    t.end();
-  })
-  .catch((error) => {
-    if (error) console.log('we have an error with the query: ', error);
-  }));
+test('Test that getMeals returns all the meals in the database', (t) => queries
+    .getAllMeals()
+    .then((result) => {
+      t.deepEqual(
+        result[0].title,
+        meal1.title,
+        'returns the correct info from DB',
+      );
+      t.end();
+    })
+    .catch((error) => {
+      if (error) console.log('we have an error with the query: ', error);
+    }));
 
 test('Test that getMealById returns all info in a meal', (t) => {
-  queries.getMealById(1)
+  queries
+    .getMealById(1)
     .then((result) => {
       t.deepEqual(result[0], meal1, 'returns the correct info from DB');
+      t.end();
+    })
+    .catch((error) => {
+      if (error) console.log('we have an error with the query: ', error);
+    });
+});
+
+test('Test that getMealTitles returns all titles and ids', (t) => {
+  queries
+    .getMealTitles(1)
+    .then((result) => {
+      t.deepEqual(
+        result[0],
+        meal1.id,
+        'returns the correct meal id info from DB',
+      );
+      t.deepEqual(
+        result[0].title,
+        meal1.title,
+        'returns the correct meal title info from DB',
+      );
       t.end();
     })
     .catch((error) => {
