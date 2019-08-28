@@ -11,24 +11,14 @@ router.get('/', (req, res) => {
 router.get('/logmeal', (req, res, next) => {
   queries
     .getMealTitles()
-    .then((getMealTitles) => res.render('logmeal', {
-      getMealTitles,
-    }))
+    .then((getMealTitles) => res.render('logmeal', { getMealTitles }))
     .catch((err) => next(err));
 });
 
-router.post('/logmeal', ({
-  body,
-}, res) => {
-  console.log('Log Meal ', body);
+router.post('/logmeal', ({ body }, res) => {
   queries.logMeal(body);
-  const {
-    meal,
-  } = body;
+  const { meal } = body;
   const id = parseInt(meal, 10);
-  console.log(id);
-  // .then(data => res.status(201).json(data))
-  // .catch(err => next(err));
 });
 
 // .then(res.render("home"))
@@ -55,9 +45,7 @@ router.get('/submit', (req, res) => {
   res.render('meal-submission');
 });
 
-router.post('/submit', ({
-  body,
-}, res, next) => {
+router.post('/submit', ({ body }, res, next) => {
   queries
     .addMeal(body)
     .then(res.render('home'))
@@ -65,8 +53,8 @@ router.post('/submit', ({
 });
 
 router.get('/alllogs', (req, res, next) => queries
-  .getAllUserLogs()
-  .then((logs) => res.status(200).json(logs))
-  .catch((err) => next(err)));
+    .getAllUserLogs()
+    .then((logs) => res.status(200).json(logs))
+    .catch((err) => next(err)),);
 
 module.exports = router;
