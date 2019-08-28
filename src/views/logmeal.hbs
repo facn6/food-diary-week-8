@@ -1,36 +1,33 @@
 <form id="logmeal" action="/logmeal" method="post">
-      <div>
-        <label for="username">UserName:</label>
-        <input type="text" id="username" name="username" />
-      </div>
-    <div>
-        <label for="meal">Choose Your Meal</label>
+  <div>
+    <label for="username">UserName:</label>
+    <input type="text" id="username" name="username" />
+  </div>
+  <div>
+    <label for="meal">Choose Your Meal</label>
+    <select name="meal">
+      {{#each getMealTitles}}
+      <option value={{id}}>{{title}}</option>
+      {{/each}}
+    </select>
+  </div>
 
-        <select name="meal">
-          {{#each getMealTitles}}
-          <option value={{id}}>{{title}}</option>
-          {{/each}}
-        </select>
-</div>
+  </div>
+  <div>
+    <label for="date">Meal Date:</label>
+    <input type="date" id="date" name="date" />
+  </div>
+  <div>
+    <label for="time">Meal Time:</label>
+    <input type="time" id="time" name="time" />
+  </div>
+  <div>
+    <label for="portion">Portion Size:</label>
+    <input type="text" id="portion" name="portion" />
+  </div>
+  <!-- <div class="wrapper"> -->
+  <input type="submit" value="Submit" />
 
-
-
-      </div>
-       <div>
-        <label for="date">Meal Date:</label>
-        <input type="date" id="date" name="date" />
-      </div>
-      <div>
-        <label for="time">Meal Time:</label>
-        <input type="time" id="time" name="time" />
-      </div>
-      <div>
-        <label for="portion">Portion Size:</label>
-        <input type="text" id="portion" name="portion" />
-      </div>
-      <!-- <div class="wrapper"> -->
-      <input type="submit" value="Submit"/>
-
-        <!-- <div class="button"><button type="submit">Submit Your Meal</button></div> -->
-      <!-- </div> -->
-    </form>
+  <!-- <div class="button"><button type="submit">Submit Your Meal</button></div> -->
+  <!-- </div> -->
+</form>
