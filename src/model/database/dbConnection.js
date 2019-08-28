@@ -28,4 +28,7 @@ const options = {
   ssl: params.hostname !== 'localhost',
 };
 
+console.log('db options = ', options);
+
+
 module.exports = pgp(options);
