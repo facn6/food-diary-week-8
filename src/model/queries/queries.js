@@ -2,11 +2,7 @@ const connection = require("../database/dbConnection");
 
 const getMealTitles = () => connection.query(`SELECT title FROM meals`);
 
-// const getAll = () => db.query(`SELECT * FROM facsters`);
-
 const logMeal = body => {
-  // This makes a database query, that returns an id, however, it returns an array of one, so then it is converted to just the id (as an object)
-
   const { username, date, title } = body;
   return db
     .query(

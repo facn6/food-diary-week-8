@@ -1,9 +1,5 @@
 const express = require("express");
 
-// const { getMealTitles } = require("../model/queries/queries.js");
-
-// const queries = require("./queries");
-
 const queries = require("../model/queries/queries.js");
 
 const router = express.Router();
@@ -32,18 +28,6 @@ router.post("/logmeal", (req, res) => {
   //   .then(user => res.status(201).json(user))
   // .catch(err => next(err));
 });
-
-// app.post("/fruit", (req, res) => {
-//   console.log(req.body);
-//   console.log(req.body.name, req.body.image_url);
-// });
-
-// router.get("/facsters", (req, res, next) =>
-//   queries
-//     .getAll()
-//     .then(users => res.status(200).json(users))
-//     .catch(err => next(err))
-// );
 
 router.get("/submit", (req, res) => {
   res.render("meal-submission");
