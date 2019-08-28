@@ -34,7 +34,10 @@ router.get("/submit", (req, res) => {
 });
 
 router.post("/submit", ({ body }, res, next) => {
-  queries.addMeal(body).catch(err => next(err));
+  queries
+    .addMeal(body)
+    .then(res.render("home"))
+    .catch(err => next(err));
 });
 
 module.exports = router;
