@@ -16,6 +16,7 @@ router.get("/logmeal", (req, res, next) => {
     // .then(console.log)
     .then(result => result.rows)
     .then(getMealTitles => res.render("logmeal", { getMealTitles }))
+
     // .then(console.log)
     .catch(err => next(err));
 });
@@ -26,10 +27,13 @@ router.post("/logmeal", ({ body }, res) => {
   const { meal } = body;
   const id = parseInt(meal, 10);
   console.log(id);
-  // .then(data => res.status(201).json(data))
+  // .then(result => result.rows)
+  // .then(res.render("logs", { ..... }))
   // .catch(err => next(err));
 });
 
+// router.get("/logs/:name", (req, res, next) => {
+//   queries
 // .then(res.render("home"))
 
 // router.post(
@@ -63,7 +67,7 @@ router.post("/submit", ({ body }, res, next) => {
 
 router.get("/alllogs", (req, res, next) =>
   queries
-    .getAllUserLogs()
+    .getAllLogs()
     .then(logs => res.status(200).json(logs))
     .catch(err => next(err))
 );
