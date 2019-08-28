@@ -13,7 +13,7 @@ CREATE TABLE meal_log (
   id            SERIAL        PRIMARY KEY,
   username      VARCHAR(40)   NOT NULL,
   meal_id       integer       REFERENCES meals(id),
-  datetime          TIMESTAMP WITHOUT TIME ZONE   NOT NULL,
+  datetime      TIMESTAMP WITHOUT TIME ZONE   NOT NULL,
   portion_size  FLOAT
 );
 
