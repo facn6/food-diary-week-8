@@ -1,5 +1,5 @@
 require('dotenv').config();
-const pgp = require('pg-promise');
+const pgp = require('pg-promise')();
 const url = require('url');
 
 let {
@@ -27,8 +27,5 @@ const options = {
   password,
   ssl: params.hostname !== 'localhost',
 };
-
-console.log('db options = ', options);
-
 
 module.exports = pgp(options);
