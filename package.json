@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/facn6/food-diary-week-8#readme",
   "devDependencies": {
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^1.19.1",
     "tap-spec": "^5.0.0",
     "tape": "^4.11.0"

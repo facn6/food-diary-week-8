@@ -1,8 +1,9 @@
-const fs = require("fs");
-const connection = require("./dbConnection");
+const fs = require('fs');
+const connection = require('./dbConnection');
+
 const sql = fs.readFileSync(`${__dirname}/db_build.sql`).toString();
 
-const buildDatabase = cb => {
+const buildDatabase = (cb) => {
   connection.query(sql, cb);
 };
 

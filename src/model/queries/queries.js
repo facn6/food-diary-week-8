@@ -1,21 +1,22 @@
-const connection = require("../database/dbConnection");
+const connection = require('../database/dbConnection');
 
-const getMealTitles = () => connection.query(`SELECT title FROM meals`);
+const getMealTitles = () => connection.query('SELECT title FROM meals');
 
-const logMeal = body => {
-  const { username, date, title } = body;
-  return db
-    .query(
-      `INSERT INTO meal_log(firstname, surname, cohort) VALUES($1,$2, $3) RETURNING ID`,
-      [username, date, title]
-    )
-    .then(idArray => {
-      return idArray[0];
-    });
+const logMeal = (body) => {
+  const {
+    username,
+    date,
+    title,
+  } = body;
+  return db.query(
+    'INSERT INTO meal_log(firstname, surname, cohort) VALUES($1,$2, $3) RETURNING ID',
+    [username, date, title],
+  )
+    .then((idArray) => idArray[0]);
 };
 
-const getAllLogs = cb => {
-  connection.query("SELECT * FROM meal_log;", (err, res) => {
+const getAllLogs = (cb) => {
+  connection.query('SELECT * FROM meal_log;', (err, res) => {
     if (err) {
       cb(err);
     } else {
@@ -26,7 +27,7 @@ const getAllLogs = cb => {
 
 const getAllUserLogs = (user, cb) => {
   connection.query(
-    "SELECT * FROM meal_log WHERE username = $1;",
+    'SELECT * FROM meal_log WHERE username = $1;',
     [user],
     (err, res) => {
       if (err) {
@@ -34,13 +35,13 @@ const getAllUserLogs = (user, cb) => {
       } else {
         cb(null, res.rows);
       }
-    }
+    },
   );
 };
 
 const getSingleLog = (logId, cb) => {
   connection.query(
-    "SELECT * FROM meal_log WHERE id = $1;",
+    'SELECT * FROM meal_log WHERE id = $1;',
     [logId],
     (err, res) => {
       if (err) {
@@ -48,12 +49,12 @@ const getSingleLog = (logId, cb) => {
       } else {
         cb(null, res.rows);
       }
-    }
+    },
   );
 };
 
-const getAllMeals = cb => {
-  connection.query("SELECT * FROM meals;", (err, res) => {
+const getAllMeals = (cb) => {
+  connection.query('SELECT * FROM meals;', (err, res) => {
     if (err) {
       cb(err);
     } else {
@@ -64,7 +65,7 @@ const getAllMeals = cb => {
 
 const getMealById = (mealId, cb) => {
   connection.query(
-    "SELECT * FROM meals WHERE id = $1;",
+    'SELECT * FROM meals WHERE id = $1;',
     [mealId],
     (err, res) => {
       if (err) {
@@ -72,15 +73,19 @@ const getMealById = (mealId, cb) => {
       } else {
         cb(null, res.rows);
       }
-    }
+    },
   );
 };
 
-const addMeal = meal => {
-  const { title, calories, ing } = meal;
+const addMeal = (meal) => {
+  const {
+    title,
+    calories,
+    ing,
+  } = meal;
   return connection.query(
-    `INSERT INTO meals(title, calories, ingredients) VALUES($1, $2, $3) `,
-    [title, calories, ing]
+    'INSERT INTO meals(title, calories, ingredients) VALUES($1, $2, $3) ',
+    [title, calories, ing],
   );
 };
 
@@ -91,5 +96,5 @@ module.exports = {
   getAllUserLogs,
   getSingleLog,
   getAllMeals,
-  getMealById
+  getMealById,
 };
