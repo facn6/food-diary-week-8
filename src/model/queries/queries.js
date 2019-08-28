@@ -1,15 +1,18 @@
 const connection = require('../database/dbConnection');
 
-const getMealTitles = () => connection.query('SELECT title FROM meals');
+const getMealTitles = () => connection.query('SELECT id, title FROM meals');
 
 const logMeal = (body) => {
-  const { username, date, title } = body;
-  return connection
-    .query(
-      'INSERT INTO meal_log(firstname, surname, cohort) VALUES($1,$2, $3) RETURNING ID',
-      [username, date, title],
-    )
-    .then((idArray) => idArray[0]);
+  const {
+ username, meal, date, time, portion 
+} = body;
+  const idMeal = parseInt(meal, 10);
+  const datetime = `${date} ${time}`;
+  return connection.query(
+    `INSERT INTO meal_log(username, meal_id, datetime, portion_size )
+     VALUES($1, $2, $3, $4)`,
+    [username, idMeal, datetime, portion],
+  );
 };
 
 const getAllLogs = () => connection.query('SELECT * FROM meal_log;');
@@ -18,7 +21,7 @@ const getAllUserLogs = (user) => connection.query('SELECT * FROM meal_log WHERE 
 
 const getSingleLog = (logId) => connection.query('SELECT * FROM meal_log WHERE id = $1;', [logId]);
 
-const getAllMeals = (cb) => connection.query('SELECT * FROM meals;');
+const getAllMeals = () => connection.query('SELECT * FROM meals;');
 
 const getMealById = (mealId) => connection.query('SELECT * FROM meals WHERE id = $1;', [mealId]);
 

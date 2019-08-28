@@ -1,33 +1,24 @@
-const express = require("express");
+const express = require('express');
 
-const queries = require("../model/queries/queries.js");
+const queries = require('../model/queries/queries.js');
 
 const router = express.Router();
 
-// const app = express();
-
-router.get("/", (req, res) => {
-  res.render("home");
+router.get('/', (req, res) => {
+  res.render('home');
 });
 
-router.get("/logmeal", (req, res, next) => {
+router.get('/logmeal', (req, res, next) => {
   queries
     .getMealTitles()
-    // .then(console.log)
-    .then(result => result.rows)
-    .then(getMealTitles => res.render("logmeal", { getMealTitles }))
-    // .then(console.log)
-    .catch(err => next(err));
+    .then((getMealTitles) => res.render('logmeal', { getMealTitles }))
+    .catch((err) => next(err));
 });
 
-router.post("/logmeal", ({ body }, res) => {
-  console.log("Log Meal ", body);
+router.post('/logmeal', ({ body }, res) => {
   queries.logMeal(body);
   const { meal } = body;
   const id = parseInt(meal, 10);
-  console.log(id);
-  // .then(data => res.status(201).json(data))
-  // .catch(err => next(err));
 });
 
 // .then(res.render("home"))
@@ -50,22 +41,20 @@ router.post("/logmeal", ({ body }, res) => {
 //   }
 // );
 
-router.get("/submit", (req, res) => {
-  res.render("meal-submission");
+router.get('/submit', (req, res) => {
+  res.render('meal-submission');
 });
 
-router.post("/submit", ({ body }, res, next) => {
+router.post('/submit', ({ body }, res, next) => {
   queries
     .addMeal(body)
-    .then(res.render("home"))
-    .catch(err => next(err));
+    .then(res.render('home'))
+    .catch((err) => next(err));
 });
 
-router.get("/alllogs", (req, res, next) =>
-  queries
+router.get('/alllogs', (req, res, next) => queries
     .getAllUserLogs()
-    .then(logs => res.status(200).json(logs))
-    .catch(err => next(err))
-);
+    .then((logs) => res.status(200).json(logs))
+    .catch((err) => next(err)),);
 
 module.exports = router;
