@@ -23,7 +23,8 @@
   "devDependencies": {
     "nodemon": "^1.19.1",
     "tap-spec": "^5.0.0",
-    "tape": "^4.11.0"
+    "tape": "^4.11.0",
+    "tape-promise": "^4.0.0"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -33,6 +34,7 @@
     "handlebars": "^4.1.2",
     "path": "^0.12.7",
     "pg": "^7.12.1",
+    "pg-promise": "^9.1.1",
     "supertest": "^4.0.2",
     "url": "^0.11.0"
   }

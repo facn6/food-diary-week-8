@@ -1,5 +1,10 @@
-const test = require("tape");
-const buildDatabase = require("../model/database/dbBuild");
+const tape = require("tape");
+const _test = require('tape-promise').default;
+const test = _test(tape);
+const {
+  build,
+  connection
+} = require("../model/database/dbBuild");
 const queries = require("../model/queries/queries");
 
 test("tape test for db files is working", t => {
@@ -22,57 +27,61 @@ const meal1 = {
   ingredients: ['Chicken', 'Avocado', 'Lettuce', 'Onion']
 }
 
+connection.query(build)
+  .then(res => console.log('res', res))
+  .catch(e => console.error('error', e));
+
 test('Test that getAllLogs returns all the diary info', t => {
-  buildDatabase((err, res) => {
-    t.error(err, 'no errors whoop');
-    queries.getAllLogs((error, result) => {
-      if (error) console.log('we have an error with the query: ', error);
+  return queries.getAllLogs()
+    .then(result => {
       t.deepEqual(result[0].username, log1.username, 'returns the correct info from DB');
       t.end();
     })
-  })
+    .catch(error => {
+      if (error) console.log('we have an error with the query: ', error);
+    })
 })
 
 test('Test that getAllUserLogs returns all the diary info for given user', t => {
-  buildDatabase((err, res) => {
-    t.error(err, 'no errors whoop');
-    queries.getAllUserLogs('Bobby', (error, result) => {
-      if (error) console.log('we have an error with the query: ', error);
+  return queries.getAllUserLogs('Bobby')
+    .then(result => {
       t.deepEqual(result[0].username, log1.username, 'returns the correct info from DB');
       t.end();
     })
-  })
+    .catch(error => {
+      if (error) console.log('we have an error with the query: ', error);
+    })
 })
 
 test('Test that getSingleLog returns the correct meal log', t => {
-  buildDatabase((err, res) => {
-    t.error(err, 'no errors whoop');
-    queries.getSingleLog(1, (error, result) => {
-      if (error) console.log('we have an error with the query: ', error);
+  return queries.getSingleLog(1)
+    .then(result => {
       t.deepEqual(result[0].username, log1.username, 'returns the correct info from DB');
       t.end();
     })
-  })
+    .catch(error => {
+      if (error) console.log('we have an error with the query: ', error);
+    })
 })
 
 test('Test that getMeals returns all the meals in the database', t => {
-  buildDatabase((err, res) => {
-    t.error(err, 'no errors whoop');
-    queries.getAllMeals((error, result) => {
-      if (error) console.log('we have an error with the query: ', error);
+  return queries.getAllMeals()
+    .then(result => {
       t.deepEqual(result[0].title, meal1.title, 'returns the correct info from DB');
       t.end();
     })
-  })
+    .catch(error => {
+      if (error) console.log('we have an error with the query: ', error);
+    })
 })
 
 test('Test that getMealById returns all info in a meal', t => {
-  buildDatabase((err, res) => {
-    t.error(err, 'no errors whoop');
-    queries.getMealById(1, (error, result) => {
-      if (error) console.log('we have an error with the query: ', error);
+  queries.getMealById(1)
+    .then(result => {
       t.deepEqual(result[0], meal1, 'returns the correct info from DB');
       t.end();
     })
-  })
+    .catch(error => {
+      if (error) console.log('we have an error with the query: ', error);
+    })
 })
