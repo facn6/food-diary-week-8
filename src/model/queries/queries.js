@@ -78,8 +78,8 @@ const getMealById = (mealId, cb) => {
 
 const addMeal = meal => {
   const { title, calories, ing } = meal;
-  return db.query(
-    `INSERT INTO meals(title, calories, ingredients) VALUES($1,$2, $3) `,
+  return connection.query(
+    `INSERT INTO meals(title, calories, ingredients) VALUES($1, $2, $3) `,
     [title, calories, ing]
   );
 };

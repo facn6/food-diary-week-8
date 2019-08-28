@@ -33,8 +33,11 @@ router.get("/submit", (req, res) => {
   res.render("meal-submission");
 });
 
-router.post("/submit", (req, res, next) => {
-  queries.addMeal(req).catch(err => next(err));
+router.post("/submit", ({ body }, res, next) => {
+  queries
+    .addMeal(body)
+    .then(res.render("home"))
+    .catch(err => next(err));
 });
 
 module.exports = router;
