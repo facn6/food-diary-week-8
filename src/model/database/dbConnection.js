@@ -2,9 +2,7 @@ require('dotenv').config();
 const pgp = require('pg-promise')();
 const url = require('url');
 
-let {
-  DATABASE_URL,
-} = process.env;
+let { DATABASE_URL } = process.env;
 
 if (process.env.NODE_ENV === 'test') {
   DATABASE_URL = process.env.TEST_DB_URL;
