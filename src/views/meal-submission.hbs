@@ -1,31 +1,26 @@
+<form id="meal" action="/submit" method="post">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="title" />
+  </div>
 
- <!-- <ul id="list" class="countries">
-    {{#each countryData}}
-    {{#if this.city }}
-    <li class="list">{{this.country}} : {{this.city}}</li>
-   {{/if}}
-    {{/each}}
-  </ul> -->
+  <div>
+    <label for="calories">Calories:</label>
+    <input type="text" id="calories" name="calories" />
+  </div>
 
-  <form id="meal" action="/submit" method="post">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="title" />
-      </div>
-      <div>
-        <label for="calories">Calories:</label>
-        <input type="text" id="calories" name="calories" />
-      </div>
-      <div>
-        <label for="ingredients">Ingredients:</label>
-      <input type="text" name="ing[1]"/>
-      <input type="text" name="ing[2]"/>
-      <input type="text" name="ing[3]"/>
-      <input type="text" name="ing[4]"/>
-      <input type="text" name="ing[5]"/>
-      <input type="text" name="ing[6]"/>
-      </div>
+  <div>
+    <label for="ingredients">Ingredients:</label>
+    <input type="text" name="ing[1]" />
+    <input type="text" name="ing[2]" />
+    <input type="text" name="ing[3]" />
+    <input type="text" name="ing[4]" />
+    <input type="text" name="ing[5]" />
+    <input type="text" name="ing[6]" />
+  </div>
 
-      <div class="button"><button type="submit">Submit</button></div>
+  <div class="button">
+    <button type="submit">Submit</button>
+  </div>
 
-  </form>
+</form>
