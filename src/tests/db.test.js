@@ -153,3 +153,16 @@ test('Test that logMeal posts a new meal to DB', (t) => {
       if (error) console.log('we have an error with the query: ', error);
     });
 });
+
+test('That addMeal adds to the database', (t) => {
+  queries
+    .addMeal({
+      title: 'salad',
+      calories: 200,
+      ing: ['tomatoes', 'cucumber', '', '', '', ''],
+    })
+    .then((id) => queries.getMealById({ id }))
+    .then((meal) => {
+      t.end;
+    });
+});
