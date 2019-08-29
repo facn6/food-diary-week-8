@@ -1,4 +1,11 @@
 {{#each userLogs}}
-<p class="card">{{datetime}}, {{username}}</p><br>
+<p class="card">On {{datetime}} {{username}} had {{title}}<br>
+<br>
+
+    <span id="info" style="color:teal"><a href="mealdetails/{{title}}/{{calories}}/{{ingredients}}/{{portion_size}}">
+      More Info</a></span>
+
+</p>
+
 
 {{/each}}
