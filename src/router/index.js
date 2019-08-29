@@ -54,7 +54,8 @@ router.get("/submit", (req, res) => {
 router.post("/submit", ({ body }, res, next) => {
   queries
     .addMeal(body)
-    .then(res.render("home"))
+
+    .then(res.redirect("/"))
     .catch(err => next(err));
 });
 

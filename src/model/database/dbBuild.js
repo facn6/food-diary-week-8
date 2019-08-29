@@ -12,7 +12,7 @@ const build = sql("./db_build.sql");
 
 connection
   .query(build)
-  .then(res => console.log("res", res))
+  .then(() => console.log("Database connected and built"))
   .catch(e => console.error("error", e));
 
 module.exports = {

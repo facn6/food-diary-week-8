@@ -33,11 +33,6 @@ const meal1 = {
   ingredients: ["Chicken", "Avocado", "Lettuce", "Onion"]
 };
 
-connection
-  .query(build)
-  .then(res => console.log("res", res))
-  .catch(e => console.error("error", e));
-
 test("Test that getAllLogs returns all the diary info", t => {
   queries
     .getAllLogs()
@@ -138,18 +133,35 @@ test("Test that getMealTitles returns all titles and ids", t => {
 test("Test that logMeal posts a new meal to DB", t => {
   queries
     .logMeal(newMealLog)
-    // .then((result) => console.log('post result = ', result));
-    .then(
-      queries.getAllUserLogs("Test").then(result => {
-        t.deepEqual(
-          result[0].username,
-          newMealLog.username,
-          "loads new meal log into db"
-        );
-        t.end();
-      })
-    )
+    .then(() => queries.getAllUserLogs("Test"))
+    .then(result => {
+      t.deepEqual(
+        result[0].username,
+        newMealLog.username,
+        "loads new meal log into db"
+      );
+      t.end();
+    })
     .catch(error => {
       if (error) console.log("we have an error with the query: ", error);
     });
 });
+
+test("That addMeal adds to the database", t => {
+  queries
+    .addMeal({
+      title: "salad",
+      calories: 200,
+      ing: ["tomatoes", "cucumber", "", "", "", ""]
+    })
+    .then(({ id }) => queries.getMealById(id))
+    .then(meal => {
+      t.deepEqual(meal[0].title, "salad", "adds meal to database");
+      t.end();
+    });
+});
+
+connection
+  .query(build)
+  .then(() => console.log("Database connected and built"))
+  .catch(e => console.error("error", e));

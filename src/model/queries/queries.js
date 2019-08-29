@@ -33,10 +33,12 @@ const getMealById = mealId =>
 
 const addMeal = meal => {
   const { title, calories, ing } = meal;
-  return connection.query(
-    "INSERT INTO meals(title, calories, ingredients) VALUES($1, $2, $3) ",
-    [title, calories, ing]
-  );
+  return connection
+    .query(
+      "INSERT INTO meals(title, calories, ingredients) VALUES($1, $2, $3) RETURNING ID",
+      [title, calories, ing]
+    )
+    .then(idArray => idArray[0]);
 };
 
 module.exports = {
