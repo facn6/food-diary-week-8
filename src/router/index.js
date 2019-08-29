@@ -4,7 +4,11 @@ const queries = require("../model/queries/queries.js");
 
 const router = express.Router();
 
-// const app = express();
+const path = require("path");
+
+const app = express();
+
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 router.get("/", (req, res) => {
   res.render("home");
@@ -14,45 +18,40 @@ router.get("/logmeal", (req, res, next) => {
   queries
     .getMealTitles()
     // .then(console.log)
-    .then(result => result.rows)
+    // .then(result => result)
     .then(getMealTitles => res.render("logmeal", { getMealTitles }))
 
     // .then(console.log)
     .catch(err => next(err));
 });
 
-router.post("/logmeal", ({ body }, res) => {
+router.post("/logmeal", ({ body }, res, next) => {
+  const { username } = body;
   console.log("Log Meal ", body);
-  queries.logMeal(body);
-  const { meal } = body;
-  const id = parseInt(meal, 10);
-  console.log(id);
-  // .then(result => result.rows)
-  // .then(res.render("logs", { ..... }))
-  // .catch(err => next(err));
+  queries
+    .logMeal(body)
+    // const { meal } = body;
+    // const id = parseInt(meal, 10);
+    // console.log(id);
+
+    // console.log(username);
+
+    // .then(result => result.rows)
+    .then(res.redirect(`/logs/${username}`))
+    .catch(err => next(err));
 });
 
-// router.get("/logs/:name", (req, res, next) => {
-//   queries
-// .then(res.render("home"))
+router.get(`/logs/:username`, (req, res, next) => {
+  const name = req.params.username;
+  console.log("Name from url", name);
+  queries
+    .getAllUserLogs(name)
+    // .then(console.log)
+    // .then(result => result)
+    .then(userLogs => res.render("logs", { userLogs }))
 
-// router.post(
-//   "/facsters/:name/:location",
-//   ({ params: { name }, params: { location }, body }, res, next) => {
-//     console.log("Name", name);
-//     console.log("Location", location);
-//     queries
-//       .addLocation(name, location)
-//       // .then(userID => queries.getFacsterById(userID))
-//       // .then(console.log)
-//       .then(user => res.status(201).json(user))
-//       // .then("Then", console.log)
-//
-//       // .then(res.send("Hello Dexter"))
-//       // .then("201", console.log)
-//       .catch(err => next(err));
-//   }
-// );
+    .catch(err => next(err));
+});
 
 router.get("/submit", (req, res) => {
   res.render("meal-submission");
