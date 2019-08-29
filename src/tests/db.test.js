@@ -33,7 +33,6 @@ const meal1 = {
   ingredients: ["Chicken", "Avocado", "Lettuce", "Onion"]
 };
 
-// const runTests = () => {
 test("Test that getAllLogs returns all the diary info", t => {
   queries
     .getAllLogs()
@@ -130,7 +129,7 @@ test("Test that getMealTitles returns all titles and ids", t => {
       if (error) console.log("we have an error with the query: ", error);
     });
 });
-//
+
 test("Test that logMeal posts a new meal to DB", t => {
   queries
     .logMeal(newMealLog)
@@ -161,10 +160,8 @@ test("That addMeal adds to the database", t => {
       t.end();
     });
 });
-// };
 
 connection
   .query(build)
   .then(() => console.log("Database connected and built"))
-  // .then(() => runTests())
   .catch(e => console.error("error", e));

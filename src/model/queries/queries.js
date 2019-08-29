@@ -18,7 +18,10 @@ const logMeal = body => {
 const getAllLogs = () => connection.query("SELECT * FROM meal_log;");
 
 const getAllUserLogs = user =>
-  connection.query("SELECT * FROM meal_log WHERE username = $1;", [user]);
+  connection.query(
+    "SELECT * FROM meal_log INNER JOIN meals ON (meals.id = meal_log.meal_id) WHERE username = $1;",
+    [user]
+  );
 
 const getSingleLog = logId =>
   connection.query("SELECT * FROM meal_log WHERE id = $1;", [logId]);

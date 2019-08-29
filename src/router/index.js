@@ -31,6 +31,22 @@ router.get("/logs/:username", (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.get(
+  "/logs/mealdetails/:title/:calories/:ingredients/:portion_size",
+  (req, res) => {
+    console.log("Request params:", req.params);
+    const { title, calories, ingredients, portion_size } = req.params;
+    const totalCal = calories * portion_size;
+    res.render("onemealinfo", {
+      title,
+      calories,
+      ingredients,
+      portion_size,
+      totalCal
+    });
+  }
+);
+
 router.get("/submit", (req, res) => {
   res.render("meal-submission");
 });
@@ -38,6 +54,7 @@ router.get("/submit", (req, res) => {
 router.post("/submit", ({ body }, res, next) => {
   queries
     .addMeal(body)
+
     .then(res.redirect("/"))
     .catch(err => next(err));
 });
