@@ -4,12 +4,6 @@ const queries = require("../model/queries/queries.js");
 
 const router = express.Router();
 
-const path = require("path");
-
-const app = express();
-
-app.use(express.static(path.join(__dirname, "..", "public")));
-
 router.get("/", (req, res) => {
   res.render("home");
 });
@@ -17,11 +11,7 @@ router.get("/", (req, res) => {
 router.get("/logmeal", (req, res, next) => {
   queries
     .getMealTitles()
-    // .then(console.log)
-    // .then(result => result)
     .then(getMealTitles => res.render("logmeal", { getMealTitles }))
-
-    // .then(console.log)
     .catch(err => next(err));
 });
 
@@ -30,13 +20,6 @@ router.post("/logmeal", ({ body }, res, next) => {
   console.log("Log Meal ", body);
   queries
     .logMeal(body)
-    // const { meal } = body;
-    // const id = parseInt(meal, 10);
-    // console.log(id);
-
-    // console.log(username);
-
-    // .then(result => result.rows)
     .then(res.redirect(`/logs/${username}`))
     .catch(err => next(err));
 });
@@ -46,8 +29,6 @@ router.get(`/logs/:username`, (req, res, next) => {
   console.log("Name from url", name);
   queries
     .getAllUserLogs(name)
-    // .then(console.log)
-    // .then(result => result)
     .then(userLogs => res.render("logs", { userLogs }))
 
     .catch(err => next(err));
